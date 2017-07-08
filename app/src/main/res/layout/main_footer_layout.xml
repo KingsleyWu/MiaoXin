@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="50dp">
+
+    <RadioGroup
+        android:id="@+id/main_rg_footer"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:paddingBottom="3dp"
+        android:paddingTop="5dp">
+
+        <RadioButton
+            android:id="@+id/main_rb_footer_message"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:button="@null"
+            android:checked="true"
+            android:drawableTop="@drawable/rb_message_selector"
+            android:gravity="center"
+            android:text="喵信"
+            android:textColor="@color/main_rb_text_color_selector"
+            android:textSize="12sp" />
+
+        <RadioButton
+            android:id="@+id/main_rb_footer_friend"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:button="@null"
+            android:drawableTop="@drawable/rb_friends_selector"
+            android:gravity="center"
+            android:text="喵友"
+            android:textColor="@color/main_rb_text_color_selector"
+            android:textSize="12sp" />
+
+        <RadioButton
+            android:id="@+id/main_rb_footer_find"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:button="@null"
+            android:drawableTop="@drawable/rb_find_selector"
+            android:gravity="center"
+            android:text="喵圈"
+            android:textColor="@color/main_rb_text_color_selector"
+            android:textSize="12sp" />
+
+        <RadioButton
+            android:id="@+id/main_rb_footer_settings"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:button="@null"
+            android:drawableTop="@drawable/rb_settings_selector"
+            android:gravity="center"
+            android:text="喵舍"
+            android:textColor="@color/main_rb_text_color_selector"
+            android:textSize="12sp" />
+
+    </RadioGroup>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:baselineAligned="false">
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <TextView
+                android:id="@+id/main_tv_message"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="25dp"
+                android:background="@drawable/footer_tv_shape"
+                android:visibility="invisible"
+                android:text="1" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <TextView
+                android:id="@+id/main_tv_friend"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="25dp"
+                android:background="@drawable/footer_tv_shape"
+                android:visibility="invisible"
+                android:text="1" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <TextView
+                android:id="@+id/main_tv_find"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="25dp"
+                android:background="@drawable/footer_tv_shape"
+                android:visibility="invisible"
+                android:text="1" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+            <TextView
+                android:id="@+id/main_tv_settings"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="25dp"
+                android:background="@drawable/footer_tv_shape"
+                android:visibility="invisible"
+                android:text="1" />
+        </RelativeLayout>
+    </LinearLayout>
+
+</RelativeLayout>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <!-- action items -->
+    <!-- showAsAction默认为never -->
+    <item android:id="@+id/newBlog"
+        android:icon="@drawable/ic_new_blog"
+        app:showAsAction="always"
+        android:title="发朋友圈"/>
+</menu>
