@@ -12,12 +12,14 @@ import android.text.TextUtils;
 import android.text.method.TextKeyListener;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.kingsley.miaoxin.R;
+import com.kingsley.miaoxin.app.MyApp;
 import com.kingsley.miaoxin.config.Constant;
 import com.kingsley.miaoxin.entity.MyUser;
 import com.kingsley.miaoxin.thirdparty.CircleImageView;
@@ -32,6 +34,7 @@ import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.datatype.BmobFile;
 import cn.bmob.v3.listener.FindListener;
+import cn.bmob.v3.listener.GetListener;
 import cn.bmob.v3.listener.UpdateListener;
 import cn.bmob.v3.listener.UploadFileListener;
 
@@ -41,8 +44,8 @@ public class UserInfoActivity extends BaseActivity {
     CircleImageView userInfoCiAvatar;
     @BindView(R.id.user_info_ed_nickname)
     EditText userInfoEdNickname;
-    @BindView(R.id.user_info_iv_nickname_editor)
-    ImageView userInfoIvNicknameEditor;
+    @BindView(R.id.user_info_cb_nickname_editor)
+    CheckBox userInfoCbNicknameEditor;
     @BindView(R.id.user_info_ll_edit_nickname_container)
     LinearLayout userInfoLlEditNicknameContainer;
     @BindView(R.id.user_info_tv_username)
@@ -70,15 +73,22 @@ public class UserInfoActivity extends BaseActivity {
         if (Constant.FRIEND.equals(from)) {
             titleTV.setText("喵友信息");
             userName = baseIntent.getStringExtra(Constant.USERNAME);
-            userInfoIvNicknameEditor.setVisibility(View.INVISIBLE);
+            userInfoCbNicknameEditor.setVisibility(View.INVISIBLE);
             userInfoBtnChat.setVisibility(View.VISIBLE);
             userInfoBtnBlackRoom.setVisibility(View.VISIBLE);
             userInfoBtnUpdate.setVisibility(View.GONE);
         } else if (Constant.CURRENTUSER.equals(from)) {
             titleTV.setText("我的资料");
             userInfoLlEditNicknameContainer.setVisibility(View.VISIBLE);
-            userName = BmobUser.getCurrentUser(this,MyUser.class).getUsername();
+            userName = BmobUser.getCurrentUser(this, MyUser.class).getUsername();
             log(userName);
+        } else {
+            titleTV.setText("喵友信息");
+            userName = baseIntent.getStringExtra(Constant.USERNAME);
+            userInfoCbNicknameEditor.setVisibility(View.INVISIBLE);
+            userInfoBtnChat.setVisibility(View.VISIBLE);
+            userInfoBtnBlackRoom.setVisibility(View.VISIBLE);
+            userInfoBtnUpdate.setVisibility(View.GONE);
         }
         setEditTextEditable(userInfoEdNickname, editable);
         userInfoTvUsername.setText(userName);
@@ -92,6 +102,7 @@ public class UserInfoActivity extends BaseActivity {
     @Override
     public void doBusiness(Context context) {
         initView();
+        //querySingleData();
     }
 
     private void initView() {
@@ -101,8 +112,9 @@ public class UserInfoActivity extends BaseActivity {
         query.findObjects(this, new FindListener<MyUser>() {
             @Override
             public void onSuccess(List<MyUser> list) {
-                log(String.valueOf(list.size()));
+                log(String.valueOf(list.size())+"userName="+userName);
                 for (int i = 0; i < list.size(); i++) {
+                    log(list.get(i).getUsername());
                     if (userName.contains(list.get(i).getUsername())) {
                         user = list.get(i);
                         setUserInfo();
@@ -137,10 +149,10 @@ public class UserInfoActivity extends BaseActivity {
             } else {
                 userInfoIvGender.setImageResource(R.drawable.girl);
             }
-        }else {
-            log(user.getGender()+" 性别");
+        } else {
+            log(user.getGender() + " 性别");
         }
-        log(user.toString()+"username ="+user.getUsername());
+        log(user.toString() + "username =" + user.getUsername());
 
     }
 
@@ -156,7 +168,7 @@ public class UserInfoActivity extends BaseActivity {
         }
     }
 
-    @OnClick({R.id.user_info_ci_Avatar,R.id.user_info_iv_nickname_editor,
+    @OnClick({R.id.user_info_ci_Avatar, R.id.user_info_cb_nickname_editor,
             R.id.user_info_ll_edit_nickname_container, R.id.user_info_btn_update,
             R.id.user_info_btn_chat, R.id.user_info_btn_black_room})
     public void onViewClicked(View view) {
@@ -164,9 +176,17 @@ public class UserInfoActivity extends BaseActivity {
             case R.id.user_info_ci_Avatar:
                 setAvatar();
                 break;
-            case R.id.user_info_iv_nickname_editor:
+            case R.id.user_info_cb_nickname_editor:
                 editable = !editable;
                 setEditTextEditable(userInfoEdNickname, editable);
+                if (editable) {
+                    //设置光标处于字母的最尾部
+                    userInfoEdNickname.setSelection(userInfoEdNickname.getText().toString().length());
+                    userInfoEdNickname.setCursorVisible(true);
+                } else {
+                    //设置为光标不可见
+                    userInfoEdNickname.setCursorVisible(false);
+                }
                 break;
             case R.id.user_info_ll_edit_nickname_container:
                 break;
@@ -278,6 +298,22 @@ public class UserInfoActivity extends BaseActivity {
             });
         }
         super.onActivityResult(requestCode, resultCode, data);
+    }
+
+    private void querySingleData() {
+        BmobQuery<MyUser> query = new BmobQuery<>();
+        query.getObject(this, MyApp.user.getObjectId(), new GetListener<MyUser>() {
+            @Override
+            public void onSuccess(MyUser myUser) {
+                user = myUser;
+                setUserInfo();
+            }
+
+            @Override
+            public void onFailure(int i, String s) {
+                toastAndLog("查询用户信息失败", i, s);
+            }
+        });
     }
 
 }

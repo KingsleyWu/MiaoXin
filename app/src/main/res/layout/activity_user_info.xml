@@ -50,12 +50,12 @@
                 android:paddingEnd="15dp"
                 android:background="@null"
                 tools:ignore="LabelFor" />
-            <ImageView
-                android:id="@+id/user_info_iv_nickname_editor"
+            <CheckBox
+                android:id="@+id/user_info_cb_nickname_editor"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/edit_selector"
-                tools:ignore="ContentDescription" />
+                android:background="@drawable/edit_selector"
+                android:button="@null" />
         </LinearLayout>
     </LinearLayout>
 

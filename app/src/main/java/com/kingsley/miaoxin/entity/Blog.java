@@ -1,5 +1,8 @@
 package com.kingsley.miaoxin.entity;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import cn.bmob.v3.BmobObject;
 
 /**
@@ -14,7 +17,7 @@ public class Blog extends BmobObject {
     private MyUser author;
     private String content;
     private String imgUrls;
-    private Integer love;
+    private List<String> loveUsers;
 
     public MyUser getAuthor() {
         return author;
@@ -40,11 +43,14 @@ public class Blog extends BmobObject {
         this.imgUrls = imgUrls;
     }
 
-    public Integer getLove() {
-        return love;
+    public List<String> getLoveUsers() {
+        if (loveUsers == null) {
+            loveUsers = new ArrayList<>();
+        }
+        return loveUsers;
     }
 
-    public void setLove(Integer love) {
-        this.love = love;
+    public void setLoveUsers(List<String> loveUser) {
+        this.loveUsers = loveUser;
     }
 }

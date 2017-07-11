@@ -184,6 +184,7 @@ public class PostBlogActivity extends BaseActivity {
         BmobFile.uploadBatch(this, filePaths, new UploadBatchListener() {
             @Override
             public void onSuccess(List<BmobFile> list, List<String> list1) {
+                //上传使用的是单个文件上传,所以返回时集合的size是从1到所要传递的图片的数量递增
                 if (list1.size() == filePaths.length) {
                     StringBuilder builder = new StringBuilder();
                     for (String s : list1) {
@@ -197,7 +198,7 @@ public class PostBlogActivity extends BaseActivity {
             @Override
             public void onProgress(int i, int i1, int i2, int i3) {
                 postBlogProgressbar.setProgress(i3);
-                postBlogTvProgressbar.setText(i3+"%");
+                postBlogTvProgressbar.setText(""+i3+"%");
                 isPosting = true;
             }
 
@@ -213,19 +214,21 @@ public class PostBlogActivity extends BaseActivity {
         blog.setAuthor(BmobUser.getCurrentUser(this, MyUser.class));
         blog.setContent(postBlogEdContent.getText().toString());
         blog.setImgUrls(filePath);
-        blog.setLove(0);
+        blog.setLoveUsers(new ArrayList<String>());
         blog.save(this, new SaveListener() {
             @Override
             public void onSuccess() {
                 isPosting = false;
                 toast("喵迹发布成功...");
-                postBlogEdContent.setText("");
-                //隐藏所有图片
-                for(int i=0;i<blogImages.size();i++){
-                    blogRLImages.get(i).setVisibility(View.INVISIBLE);
+                if (postBlogEdContent != null) {
+                    postBlogEdContent.setText("");
+                    //隐藏所有图片
+                    for (int i = 0; i < blogImages.size(); i++) {
+                        blogRLImages.get(i).setVisibility(View.INVISIBLE);
+                    }
+                    postBlogTvBlogIvCount.setText("");
+                    finish();
                 }
-                postBlogTvBlogIvCount.setText("");
-                finish();
             }
 
             @Override
@@ -380,7 +383,7 @@ public class PostBlogActivity extends BaseActivity {
                 iv.setImageBitmap(bitmap);
                 iv.setTag(filePath);
                 layout.setVisibility(View.VISIBLE);
-                postBlogTvBlogIvCount.setText((i + 1) + " / 4");
+                postBlogTvBlogIvCount.setText(""+(i + 1) + " / 4");
                 return;
             }
         }
@@ -420,7 +423,7 @@ public class PostBlogActivity extends BaseActivity {
         if (count == 1){
             postBlogTvBlogIvCount.setText("");
         }else {
-            postBlogTvBlogIvCount.setText((count-1)+" / 4");
+            postBlogTvBlogIvCount.setText(""+(count-1)+" / 4");
         }
     }
 }

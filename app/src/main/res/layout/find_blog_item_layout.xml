@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="80dp"
         android:orientation="horizontal"
-        android:paddingStart="10dp"
         android:paddingEnd="10dp"
+        android:paddingStart="10dp"
         tools:ignore="UseCompoundDrawables">
 
         <ImageView
@@ -46,15 +47,22 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
-        android:layout_marginTop="5dp" >
-    </RelativeLayout>
+        android:layout_marginTop="5dp"/>
+
+    <ListView
+        android:id="@+id/find_item_lv_blog_comment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="5dp"/>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:paddingLeft="10dp"
-        android:paddingRight="10dp" >
+        android:paddingRight="10dp">
 
         <TextView
             android:id="@+id/find_item_tv_blog_time"
@@ -69,8 +77,8 @@
             android:layout_height="wrap_content"
             android:drawableStart="@drawable/ic_love"
             android:gravity="center_vertical"
-            android:paddingStart="5dp"
             android:paddingEnd="5dp"
+            android:paddingStart="5dp"
             android:text="0赞" />
 
         <TextView
@@ -79,10 +87,11 @@
             android:layout_height="wrap_content"
             android:drawableStart="@drawable/ic_comment"
             android:gravity="center_vertical"
-            android:paddingStart="5dp"
             android:paddingEnd="5dp"
+            android:paddingStart="5dp"
             android:text="评论" />
     </LinearLayout>
+
     <LinearLayout
         android:id="@+id/find_item_ll_comment_container"
         android:layout_width="match_parent"
@@ -99,9 +108,9 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:maxLines="2"
             android:hint="请输入喵评..."
-            android:inputType="text" />
+            android:inputType="text"
+            android:maxLines="2" />
 
         <Button
             android:id="@+id/find_item_btn_send"
@@ -110,9 +119,9 @@
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="3dp"
             android:background="@drawable/btn_red_selector"
-            android:textColor="@android:color/white"
             android:padding="8dp"
             android:text="评论"
+            android:textColor="@android:color/white"
             android:textSize="16sp"
             tools:ignore="RtlHardcoded" />
     </LinearLayout>
